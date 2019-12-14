@@ -54,5 +54,20 @@ namespace AZFuncSPO
 
             return new OkObjectResult(termList);
         }
+
+        [FunctionName("SharePointWebhook")]
+        public async Task<IActionResult> SharePointWebhook(
+            [HttpTrigger(AuthorizationLevel.Function, "post", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            // Validation from Webhook of SharePoint
+            string validationToken = req.Query["validationtoken"];
+            if (!string.IsNullOrEmpty(validationToken))
+            {
+                return new OkObjectResult(validationToken);
+            }
+            // Logic here
+            return new OkObjectResult("Nothing");
+        }
     }
 }
